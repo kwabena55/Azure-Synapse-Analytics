@@ -1,0 +1,27 @@
+IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat')
+    CREATE EXTERNAL FILE FORMAT [SynapseParquetFormat]
+    WITH ( FORMAT_TYPE = PARQUET)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'synapsedlakecontainer_sydatalake55_dfs_core_windows_net')
+    CREATE EXTERNAL DATA SOURCE [synapsedlakecontainer_sydatalake55_dfs_core_windows_net]
+    WITH (
+        LOCATION   = 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer',
+    )
+Go
+
+CREATE EXTERNAL TABLE newtablefrompargquet (
+    [name] varchar(8000),
+    [favorite_color] varchar(8000),
+    [favorite_numbers] varchar(8000)
+    )
+    WITH (
+    LOCATION = 'users.parquet',
+    DATA_SOURCE = [synapsedlakecontainer_sydatalake55_dfs_core_windows_net],
+    FILE_FORMAT = [SynapseParquetFormat]
+    )
+GO
+
+SELECT TOP 100 * FROM newtablefrompargquet
+GO
+

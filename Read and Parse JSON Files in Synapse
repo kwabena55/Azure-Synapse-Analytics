@@ -1,0 +1,52 @@
+-- This is auto-generated code
+SELECT TOP 100
+    DOC
+/* --> place the keys that you see in JSON documents in the WITH clause:
+       , JSON_VALUE (jsonContent, '$.key1') AS header1
+       , JSON_VALUE (jsonContent, '$.key2') AS header2
+*/
+FROM
+    OPENROWSET(
+        BULK 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/location',
+        FORMAT = 'CSV',
+        FIELDQUOTE = '0x0b',
+        FIELDTERMINATOR ='0x0b',
+        ROWTERMINATOR = '0x0b'
+    )
+    WITH (
+        DOC varchar(MAX)
+    ) AS [result]
+
+
+--PARSE JSON
+select
+    JSON_VALUE(doc, '$.date_rep') AS date_reported,
+    JSON_VALUE(doc, '$.countries_and_territories') AS country,
+    CAST(JSON_VALUE(doc, '$.deaths') AS INT) as fatal,
+    JSON_VALUE(doc, '$.cases') as cases,
+    doc
+from openrowset(
+        bulk 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/location',
+        format = 'csv',
+        fieldterminator ='0x0b',
+        fieldquote = '0x0b'
+    ) with (doc nvarchar(max)) as rows
+order by JSON_VALUE(doc, '$.geo_id') desc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
