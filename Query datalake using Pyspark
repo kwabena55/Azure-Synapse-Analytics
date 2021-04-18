@@ -1,0 +1,6 @@
+%%pyspark
+df = spark.read.load('abfss://synapsedlakecontainer@sydatalake55.dfs.core.windows.net/NDHUB.AirportRunways.csv', format='csv'
+## If header exists uncomment line below
+##, header=True
+)
+display(df.limit(10))

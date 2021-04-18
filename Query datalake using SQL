@@ -1,0 +1,9 @@
+-- This is auto-generated code
+SELECT
+    TOP 100 *
+FROM
+    OPENROWSET(
+        BULK 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/NDHUB.AirportRunways.csv',
+        FORMAT = 'CSV',
+        PARSER_VERSION='2.0'
+    ) AS [result]

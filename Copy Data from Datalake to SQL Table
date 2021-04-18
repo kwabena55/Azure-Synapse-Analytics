@@ -1,0 +1,49 @@
+IF NOT EXISTS (SELECT * FROM sys.objects O JOIN sys.schemas S ON O.schema_id = S.schema_id WHERE O.NAME = 'runwaydata' AND O.TYPE = 'U' AND S.NAME = 'airport')
+CREATE TABLE airport.runwaydata
+    (
+     [OBJECTID] bigint,
+     [LOCID] nvarchar(4000),
+     [SITENO] nvarchar(4000),
+     [FULLNAME] nvarchar(4000),
+     [FAA_ST] nvarchar(4000),
+     [UNIQUE_ID] nvarchar(4000),
+     [RWY_ID] nvarchar(4000),
+     [RWY_LEN] bigint,
+     [RWY_WITH] bigint,
+     [RWY_SFC_TY] nvarchar(4000),
+     [RWY_SFC_TR] nvarchar(4000),
+     [PAV_CLASS_] nvarchar(4000),
+     [RWY_LIGHTS] nvarchar(4000),
+     [STFIPS] bigint,
+     [ST_POSTAL] nvarchar(4000),
+     [VERSION] bigint,
+     [SHAPE.LEN] float
+    )
+WITH
+    (
+    DISTRIBUTION = ROUND_ROBIN,
+     CLUSTERED COLUMNSTORE INDEX
+     -- HEAP
+    )
+GO
+
+--Uncomment the 4 lines below to create a stored procedure for data pipeline orchestration​
+--CREATE PROC bulk_load_runwaydata
+--AS
+--BEGIN
+COPY INTO airport.runwaydata
+(OBJECTID 1, LOCID 2, SITENO 3, FULLNAME 4, FAA_ST 5, UNIQUE_ID 6, RWY_ID 7, RWY_LEN 8, RWY_WITH 9, RWY_SFC_TY 10, RWY_SFC_TR 11, PAV_CLASS_ 12, RWY_LIGHTS 13, STFIPS 14, ST_POSTAL 15, VERSION 16, SHAPE.LEN 17)
+FROM 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/NDHUB.AirportRunways.csv'
+WITH
+(
+    FILE_TYPE = 'CSV'
+    ,MAXERRORS = 0
+    ,FIRSTROW = 2
+    ,ERRORFILE = 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/'
+    ,IDENTITY_INSERT = 'OFF'
+)
+--END
+GO
+
+SELECT TOP 100 * FROM airport.runwaydata
+GO
