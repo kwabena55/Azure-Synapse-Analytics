@@ -1,0 +1,47 @@
+IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat')
+    CREATE EXTERNAL FILE FORMAT [SynapseParquetFormat]
+    WITH ( FORMAT_TYPE = PARQUET)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'nyccontainer_datalakeaccountnametest_dfs_core_windows_net')
+    CREATE EXTERNAL DATA SOURCE [nyccontainer_datalakeaccountnametest_dfs_core_windows_net]
+    WITH (
+        LOCATION   = 'https://datalakeaccountnametest.dfs.core.windows.net/nyccontainer',
+    )
+Go
+
+CREATE EXTERNAL TABLE nycextparquet (
+    [DateID] int,
+    [MedallionID] int,
+    [HackneyLicenseID] int,
+    [PickupTimeID] int,
+    [DropoffTimeID] int,
+    [PickupGeographyID] int,
+    [DropoffGeographyID] int,
+    [PickupLatitude] float,
+    [PickupLongitude] float,
+    [PickupLatLong] varchar(8000),
+    [DropoffLatitude] float,
+    [DropoffLongitude] float,
+    [DropoffLatLong] varchar(8000),
+    [PassengerCount] int,
+    [TripDurationSeconds] int,
+    [TripDistanceMiles] float,
+    [PaymentType] varchar(8000),
+    [FareAmount] numeric(19,4),
+    [SurchargeAmount] numeric(19,4),
+    [TaxAmount] numeric(19,4),
+    [TipAmount] numeric(19,4),
+    [TollsAmount] numeric(19,4),
+    [TotalAmount] numeric(19,4)
+    )
+    WITH (
+    LOCATION = 'NYCTripSmall.parquet',
+    DATA_SOURCE = [nyccontainer_datalakeaccountnametest_dfs_core_windows_net],
+    FILE_FORMAT = [SynapseParquetFormat]
+    )
+GO
+
+SELECT TOP 100 * FROM nycextparquet
+GO
+
