@@ -1,0 +1,73 @@
+{
+	"name": "ds_userdata_orc",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapsetest55-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Orc",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "userdata1_orc",
+				"fileSystem": "datalakecontainer"
+			},
+			"enablePhysicalSchema": true
+		},
+		"schema": [
+			{
+				"type": "TIMESTAMP",
+				"name": "_col0"
+			},
+			{
+				"type": "INT",
+				"name": "_col1"
+			},
+			{
+				"type": "STRING",
+				"name": "_col2"
+			},
+			{
+				"type": "STRING",
+				"name": "_col3"
+			},
+			{
+				"type": "STRING",
+				"name": "_col4"
+			},
+			{
+				"type": "STRING",
+				"name": "_col5"
+			},
+			{
+				"type": "STRING",
+				"name": "_col6"
+			},
+			{
+				"type": "STRING",
+				"name": "_col7"
+			},
+			{
+				"type": "STRING",
+				"name": "_col8"
+			},
+			{
+				"type": "STRING",
+				"name": "_col9"
+			},
+			{
+				"type": "DOUBLE",
+				"name": "_col10"
+			},
+			{
+				"type": "STRING",
+				"name": "_col11"
+			},
+			{
+				"type": "STRING",
+				"name": "_col12"
+			}
+		]
+	}
+}
