@@ -1,0 +1,27 @@
+-- This is auto-generated code
+SELECT
+    TOP 100 *
+FROM
+    OPENROWSET(
+        BULK 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/output/year=*/month=1/*.parquet',
+        FORMAT = 'parquet',
+        PARSER_VERSION='2.0'
+    ) AS [result]
+
+
+    where result.filepath(1) in ( '2017,2018')
+    and result.filepath(2) in ( '11','12','13')
+
+
+
+-- This is auto-generated code
+SELECT
+    TOP 100 *
+FROM
+    OPENROWSET(
+        BULK 'https://sydatalake55.dfs.core.windows.net/synapsedlakecontainer/output/year=*/month=1/*.csv',
+        FORMAT = 'CSV',
+        PARSER_VERSION='2.0'
+    ) AS [result]
+    where result.filepath(1) in ( '2017,2018')
+    and result.filepath(2) in ( '11','12','13')
