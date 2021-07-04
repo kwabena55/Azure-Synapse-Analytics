@@ -2,7 +2,7 @@
 	"name": "Proper_Way_of_CreatingLogical Views_Not _validated",
 	"properties": {
 		"content": {
-			"query": "-- Views for Dimensions\n\n-- Source System Data\nCREATE VIEW  LDW.vwTrips\nAS\nSELECT * FROM\nOPENROWSET\n(BULK 'nyctlc/yellow/puYear=*/puMonth=*/*.parquet',  -- Specify the path of the file\nDATA_SOURCE='ExternalDataSourceDataLake2',   -- Specify the source you created on top your storage account(datalake)\nFORMAT='PARQUET' \n) as result\n\nwhere result.filepath(1) in ( '2017,2018')\nand result.filepath(2) in ( '11','12','13')",
+			"query": "-- Views for Dimensions\n\n-- -- Source System Data\n-- CREATE VIEW  LDW.vwTrips\n-- AS\n-- SELECT * FROM\n-- OPENROWSET\n-- (BULK 'nyctlc/yellow/puYear=*/puMonth=*/*.parquet',  -- Specify the path of the file\n-- DATA_SOURCE='ExternalDataSourceDataLake2',   -- Specify the source you created on top your storage account(datalake)\n-- FORMAT='PARQUET' \n-- ) as result\n\n-- where result.filepath(1) in ( '2017,2018')\n-- and result.filepath(2) in ( '11','12','13')\n\n\n\nCREATE VIEW LDW.NYCTrips2\nAS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK     'https://azureopendatastorage.blob.core.windows.net/nyctlc/yellow/puYear=*/puMonth=*/*.parquet',\n        FORMAT = 'parquet'\n    ) AS [result];\n\n\n\n    CREATE VIEW LDW.Trips3\nAS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS dimension \n\n\n\n\n    CREATE VIEW LDW.Trips4\nAS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS dimension \n\n\n\n",
 			"metadata": {
 				"language": "sql"
 			},

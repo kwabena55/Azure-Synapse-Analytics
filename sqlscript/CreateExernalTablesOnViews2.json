@@ -1,0 +1,17 @@
+{
+	"name": "CreateExernalTablesOnViews2",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'nyctlc_azureopendatastorage_blob_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [nyctlc_azureopendatastorage_blob_core_windows_net] \n\tWITH (\n\t\tLOCATION   = 'https://azureopendatastorage.blob.core.windows.net/nyctlc', \n\t)\nGo\n\nCREATE EXTERNAL TABLE DimTrips2 (\n\t[vendorID] varchar(8000),\n\t[tpepPickupDateTime] datetime2(7),\n\t[tpepDropoffDateTime] datetime2(7),\n\t[passengerCount] int,\n\t[tripDistance] float,\n\t[puLocationId] varchar(8000),\n\t[doLocationId] varchar(8000),\n\t[startLon] float,\n\t[startLat] float,\n\t[endLon] float,\n\t[endLat] float,\n\t[rateCodeId] int,\n\t[storeAndFwdFlag] varchar(8000),\n\t[paymentType] varchar(8000),\n\t[fareAmount] float,\n\t[extra] float,\n\t[mtaTax] float,\n\t[improvementSurcharge] varchar(8000),\n\t[tipAmount] float,\n\t[tollsAmount] float,\n\t[totalAmount] float\n\t)\n\tWITH (\n\tLOCATION = 'yellow/puYear=*/puMonth=*/*.parquet',\n\tDATA_SOURCE = [nyctlc_azureopendatastorage_blob_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\nSELECT TOP 500 * FROM LDW.NYCTrips2\nUNION ALL\n\nSELECT TOP 100 * FROM LDW.NYCTrips2\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "sqldat2"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
