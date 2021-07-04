@@ -1,0 +1,10 @@
+{
+	"name": "city_safety_chicago",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"sasUri": "https://azureopendatastorage.blob.core.windows.net/citydatacontainer/Safety/Release/city=Chicago?\"\""
+		}
+	}
+}
