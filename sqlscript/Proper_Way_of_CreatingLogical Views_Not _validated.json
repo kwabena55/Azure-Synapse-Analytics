@@ -7,8 +7,8 @@
 				"language": "sql"
 			},
 			"currentConnection": {
-				"poolName": "Built-in",
-				"databaseName": "sqldat2"
+				"poolName": "SQLDedPool",
+				"databaseName": "SQLDedPool"
 			},
 			"resultLimit": 5000
 		},
