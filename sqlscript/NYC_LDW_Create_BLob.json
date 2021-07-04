@@ -1,0 +1,17 @@
+{
+	"name": "NYC_LDW_Create_BLob",
+	"properties": {
+		"content": {
+			"query": "Create Database sqldat2\n\n\n\n--link to datalake BLOB_STORAGE\nCREATE EXTERNAL DATA SOURCE ExternalDataSourceDataLake2\nWITH(\n\n    LOCATION = 'https://azureopendatastorage.blob.core.windows.net/nyctlc/yellow/puYear=*/puMonth=*/*.parquet'\n        );\n\n\n\n--- CREATE A FILE FORMAT FOR WRITING DATA\nCREATE EXTERNAL FILE FORMAT SynapseParquetFormat2\nWITH(\n\n    FORMAT_TYPE = PARQUET\n        );\n\n\n-- SCHEMA FOR VIEWS AND EXTERNAL TABLES\nCREATE SCHEMA LDW AUTHORIZATION dbo;\nCREATE SCHEMA STG AUTHORIZATION dbo;\n\n\n---SUPPORT FOR UTF FILES\nALTER DATABASE sqldat2 COLLATE Latin1_General_100_BIN2_UTF8;\n\n\n--security\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Solomongbu55';\n\n\nCREATE DATABASE SCOPED CREDENTIAL WorkspaceIdentity\nWITH IDENTITY = 'Managed Identity';\n\n--CREATE DATABASE SCOPED CREDENTIAL WorkspaceIdentity\n--WITH IDENTITY = 'User Identity';\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "sqldat2"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
