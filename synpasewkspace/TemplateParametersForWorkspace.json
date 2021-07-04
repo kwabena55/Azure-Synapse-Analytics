@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "synpasewkspace"
+		},
+		"synapsetest55-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"synpasewkspace-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"nyc_tlc_yellow_sasUri": {
+			"value": ""
+		},
+		"synapsetest55-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://datalakesynsapse.dfs.core.windows.net"
+		},
+		"synpasewkspace-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapsedatalake55.dfs.core.windows.net"
+		}
+	}
+}
