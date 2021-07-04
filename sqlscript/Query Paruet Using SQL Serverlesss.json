@@ -1,0 +1,17 @@
+{
+	"name": "Query Paruet Using SQL Serverlesss",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    count(*)\nFROM\n    OPENROWSET(\n        BULK 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "master"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
