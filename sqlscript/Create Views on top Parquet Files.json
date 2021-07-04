@@ -1,0 +1,17 @@
+{
+	"name": "Create Views on top Parquet Files",
+	"properties": {
+		"content": {
+			"query": "-- Views for Dimensions\n-- Source Synstem Data\n\nCREATE VIEW LDW.Trips\nAS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS dimension \n\n\nselect * from LDW.Trips",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "sqldatag"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
