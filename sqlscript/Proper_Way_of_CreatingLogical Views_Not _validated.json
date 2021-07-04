@@ -1,0 +1,17 @@
+{
+	"name": "Proper_Way_of_CreatingLogical Views_Not _validated",
+	"properties": {
+		"content": {
+			"query": "-- Views for Dimensions\n\n-- Source System Data\nCREATE VIEW  LDW.vwTrips\nAS\nSELECT * FROM\nOPENROWSET\n(BULK 'nyctlc/yellow/puYear=*/puMonth=*/*.parquet',  -- Specify the path of the file\nDATA_SOURCE='ExternalDataSourceDataLake2',   -- Specify the source you created on top your storage account(datalake)\nFORMAT='PARQUET' \n) as result\n\nwhere result.filepath(1) in ( '2017,2018')\nand result.filepath(2) in ( '11','12','13')",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "sqldat2"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
