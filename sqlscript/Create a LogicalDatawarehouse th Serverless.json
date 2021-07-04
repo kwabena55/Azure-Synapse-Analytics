@@ -1,0 +1,17 @@
+{
+	"name": "Create a LogicalDatawarehouse th Serverless",
+	"properties": {
+		"content": {
+			"query": "Create Database sqldatagif\n\n\n\n--link to datalake BLOB_STORAGE\nCREATE EXTERNAL DATA SOURCE ExternalDataSourceDataLake\nWITH(\n\n    LOCATION = 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/'\n        );\n\n\n\n--- CREATE A FILE FORMAT FOR WRITING DATA\nCREATE EXTERNAL FILE FORMAT SynapseParquetFormat\nWITH(\n\n    FORMAT_TYPE = PARQUET\n        );\n\n\n-- SCHEMA FOR VIEWS AND EXTERNAL TABLES\nCREATE SCHEMA LDW AUTHORIZATION dbo;\nCREATE SCHEMA STG AUTHORIZATION dbo;\n\n\n---SUPPORT FOR UTF FILES\nALTER DATABASE sqldatag COLLATE Latin1_General_100_BIN2_UTF8;\n\n\n--security\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Solomongbu55';\n\n\nCREATE DATABASE SCOPED CREDENTIAL WorkspaceIdentity\nWITH IDENTITY = 'Managed Identity';\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "sqldatag"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
