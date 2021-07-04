@@ -2,7 +2,7 @@
 	"name": "Create Views on top Parquet Files",
 	"properties": {
 		"content": {
-			"query": "-- Views for Dimensions\n-- Source Synstem Data\n\nCREATE VIEW LDW.Trips\nAS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS dimension \n\n\nselect * from LDW.Trips",
+			"query": "-- Views for Dimensions\n-- Source Synstem Data\n\nCREATE VIEW LDW.Trips\nAS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://synapsedatalake55.dfs.core.windows.net/synpasecontainer/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS dimension \n\n\nselect * from LDW.Trips\n\n\nCREATE VIEW LDW.NYCTrips\nAS\nSELECT\n    count(*)\nFROM\n    OPENROWSET(\n        BULK     'https://azureopendatastorage.blob.core.windows.net/nyctlc/yellow/puYear=*/puMonth=*/*.parquet',\n        FORMAT = 'parquet'\n    ) AS [result];",
 			"metadata": {
 				"language": "sql"
 			},
